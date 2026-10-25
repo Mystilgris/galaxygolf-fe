@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Galaxy Golf - Room</title>
+    <link rel="stylesheet" href="Styling.css">
+</head>
+<body>
+    <div class="room-page">
+        <h1 class="room-page-title">Galaxy Golf</h1>
+
+        <div class="room-code-card">
+            <h2>Room Code</h2>
+            <p class="room-code">GG1234</p>
+        </div>
+
+        <div class="room-players-card">
+            <h2>Players</h2>
+            <p>Waiting for players...</p>
+        </div>
+
+        <div class="room-courses-card">
+            <h2>Select a Course</h2>
+
+            <div class="course-options">
+                <button type="button" class="course-button selected"
+                        onclick="selectCourse(this)">
+                    Course 1
+                </button>
+
+                <button type="button" class="course-button"
+                        onclick="selectCourse(this)">
+                    Course 2
+                </button>
+
+                <button type="button" class="course-button"
+                        onclick="selectCourse(this)">
+                    Course 3
+                </button>
+            </div>
+        </div>
+
+        <div class="room-page-buttons">
+            <button type="button"
+                    onclick="window.location.href='HomePage.html'">
+                Leave Room
+            </button>
+        </div>
+    </div>
+    <script>
+        function selectCourse(button) {
+            const courses = document.querySelectorAll(".course-button");
+
+            courses.forEach(course => {
+                course.classList.remove("selected");
+            });
+
+            button.classList.add("selected");
+        }
+    </script>
+</body>
+</html>
