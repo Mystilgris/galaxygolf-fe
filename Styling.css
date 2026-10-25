@@ -1,0 +1,126 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #151f4b;
+    color: white;
+}
+
+/* Home page */
+.home {
+    text-align: center;
+    margin-top: 200px;
+}
+
+.home-title {
+    font-size: 60px;
+    margin-bottom: 10px;
+}
+
+
+/* Buttons */
+button {
+    padding: 15px 35px;
+    font-size: 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+/* Create Room page */
+.create-room {
+    text-align: center;
+    margin-top: 150px;
+}
+
+.room-title {
+    font-size: 45px;
+    margin-bottom: 30px;
+}
+
+.create-room label {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.create-room input {
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.room-buttons {
+    margin-top: 25px;
+}
+
+.room-buttons button {
+    margin: 0 8px;
+}
+
+.username-card {
+    display: flex;
+    background-color: rgb(26, 18, 56);
+    max-width: 500px;
+    width: 60vw;
+    min-height: 200px;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 0 auto;
+    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+}
+/* Room page */
+.room-page {
+    text-align: center;
+    margin: 50px auto;
+    max-width: 800px;
+}
+
+.room-page-title {
+    font-size: 50px;
+    margin-bottom: 30px;
+}
+
+.room-code-card,
+.room-players-card,
+.room-courses-card {
+    background-color: rgb(26, 18, 56);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px auto;
+}
+
+.room-code {
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 4px;
+}
+
+.room-courses-card button {
+    margin: 10px;
+}
+
+.room-page-buttons {
+    margin-top: 30px;
+}
+
+.course-button {
+    background-color: #555;
+    border: 2px solid transparent;
+}
+
+.course-button:hover {
+    background-color: #666;
+}
+
+.course-button.selected {
+    background-color: #4caf50;
+    border: 2px solid white;
+}
