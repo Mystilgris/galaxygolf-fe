@@ -124,3 +124,27 @@ button:hover {
     background-color: #4caf50;
     border: 2px solid white;
 }
+
+/*Game Page*/
+.game-card {
+    display: flex;
+    background-color: rgb(26, 18, 56);
+    width: 75vw;
+    height:95vh;
+    min-height: 200px;
+    border-radius: 5px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.play-game {
+    display: flex;
+}
+
+.leave-button {
+    max-height: 6vh;
+    align-self: last baseline;
+    padding: 10px;
+
+}
