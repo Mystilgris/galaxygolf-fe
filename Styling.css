@@ -8,10 +8,17 @@ body {
 /* Home page */
 .home {
     text-align: center;
+    align-items: center;
     margin-top: 200px;
     display: flex;
     flex-direction: column;
     gap: 16px;
+}
+
+.home a {
+    display:inline-block;
+    width: fit-content;
+
 }
 
 .home-title {
@@ -137,7 +144,8 @@ button:hover {
     min-height: 200px;
     border-radius: 5px;
     margin: 0 auto;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -145,9 +153,74 @@ button:hover {
     display: flex;
 }
 
+.GameStat {
+    background-color: rgb(45, 32, 95);
+    height: auto;
+    width: 100%;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.GameStatLabel {
+    color: rgba(200, 240, 0, 0.832);
+    font-weight: 600;
+}
+
 .leave-button {
     max-height: 6vh;
     align-self: last baseline;
     padding: 10px;
 
+}
+
+
+/* Golf Scorecard */
+
+.scorecard {
+    width: 90%;
+    margin: 15px auto;
+    background-color: rgb(35, 29, 65);
+    padding: 12px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.scorecard h2 {
+    text-align: center;
+    font-size: 24px;
+    margin: 5px 0 15px 0;
+}
+
+.golf-table {
+    width: 100%;
+    border-collapse: seperate;
+    border-spacing: 0;
+    text-align: center;
+    background-color: white;
+    color: #151f4b;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.golf-table th {
+    background-color: #245c37;
+    color: white;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.golf-table td {
+    padding: 7px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+}
+
+.golf-table td:first-child {
+    font-weight: bold;
+}
+
+.golf-table .total-score {
+    font-weight: bold;
+    background-color: #e8f0e8;
+    font-size: 17px;
 }
