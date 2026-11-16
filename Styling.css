@@ -224,3 +224,12 @@ button:hover {
     background-color: #e8f0e8;
     font-size: 17px;
 }
+/* Status line on the Room page (connection messages, UC2 alt-flow prompts) */
+.room-status {
+    min-height: 1.2em;
+    text-align: center;
+}
+
+.room-status.error {
+    color: #ff6b6b;
+}
