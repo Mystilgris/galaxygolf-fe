@@ -8,17 +8,17 @@
 
 const MIN_PLAYERS = 2; // UC2 precondition 3
 
-const params   = new URLSearchParams(window.location.search);
+const params = new URLSearchParams(window.location.search);
 const roomCode = params.get("RoomCode");                  // only set when joining
 const username = params.get("username") || params.get("Username");
-const isHost   = !roomCode;                               // creator = host (UC1 rule)
+const isHost = !roomCode;                               // creator = host (UC1 rule)
 
-const codeEl    = document.getElementById("room-code");
+const codeEl = document.getElementById("room-code");
 const playersEl = document.getElementById("player-list");
-const statusEl  = document.getElementById("room-status");
-const startBtn  = document.getElementById("start-button");
-const leaveBtn  = document.getElementById("leave-button");
-const roomView  = document.getElementById("room-view");// UC1-UC4 view, hidden when the game starts
+const statusEl = document.getElementById("room-status");
+const startBtn = document.getElementById("start-button");
+const leaveBtn = document.getElementById("leave-button");
+const roomView = document.getElementById("room-view");// UC1-UC4 view, hidden when the game starts
 const courseBtns = document.querySelectorAll(".course-button");
 
 let room = null; // latest room snapshot from the server
