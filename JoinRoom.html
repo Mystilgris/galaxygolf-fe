@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Create Room - Galaxy Golf</title>
+    <title>Join Room - Galaxy Golf</title>
     <link rel="stylesheet" href="Styling.css">
 </head>
 <body>
@@ -11,8 +11,8 @@
 
         <form action="Room.html">
             <label for="RoomCode">Enter Room Code</label>
-            <input type="text" minlength="6" maxlength="6" pattern="[A-Za-z0-9]{6}" id="RoomCode" name="RoomCode" title="Room code is a combination of 6 letters and numbers"
-                   placeholder="Room Code" required>
+            <input type="text" minlength="6" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" id="RoomCode" name="RoomCode" title="Room code is 6 digits"
+                placeholder="Room Code" required>
             <label for="Username"><br>Enter Username</label>
             <input type="text" id="Username" name="Username" placeholder="Username" required>
 
