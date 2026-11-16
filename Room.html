@@ -78,8 +78,23 @@
 
             <p id="game-status" class="room-status"></p>
 
-            <!-- UC5: the course and golf ball drawing goes here -->
-            <div id="course-area"></div>
+            <canvas id="course-board" width="600" height="320"
+                aria-label="Golf course"></canvas>
+            <form id="shot-form">
+                <label>
+                    Angle
+                    <input name="angle" type="number" min="0" max="359" value="0" required>
+                </label>
+                <label>
+                    Power
+                    <input name="power" type="number" min="1" max="100" value="40" required>
+                </label>
+                <button type="submit" id="hit-button">Hit</button>
+            </form>
+            <div id="game-results" hidden>
+                <h2>Results</h2>
+                <p id="winner-label"></p>
+            </div>
         </div>
     </div>
 
