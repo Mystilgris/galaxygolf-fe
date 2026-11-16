@@ -18,6 +18,7 @@ const playersEl = document.getElementById("player-list");
 const statusEl  = document.getElementById("room-status");
 const startBtn  = document.getElementById("start-button");
 const leaveBtn  = document.getElementById("leave-button");
+const roomView  = document.getElementById("room-view");// UC1-UC4 view, hidden when the game starts
 const courseBtns = document.querySelectorAll(".course-button");
 
 let room = null; // latest room snapshot from the server
@@ -41,15 +42,21 @@ const socket = isHost
     })
 );
 
+// socket.on(RECEIVE.GAME_STARTED, data => {
+//     room = data;
+//     // TODO (team decision): see the note in the README section / PR.
+//     // Navigating to Game.html closes this socket. The backend keeps the
+//     // username in the room, so Game.html cannot simply re-join (it gets 409).
+//     // Until that is settled we keep everyone on this page.
+//     showStatus("Game started! (Game page hookup is the next step.)");
+// });
 socket.on(RECEIVE.GAME_STARTED, data => {
     room = data;
-    // TODO (team decision): see the note in the README section / PR.
-    // Navigating to Game.html closes this socket. The backend keeps the
-    // username in the room, so Game.html cannot simply re-join (it gets 409).
-    // Until that is settled we keep everyone on this page.
-    showStatus("Game started! (Game page hookup is the next step.)");
+    // Switch views instead of navigating to another page. Loading a new page
+    // would close this socket, and the backend won't let the same username
+    // join again (409), so the player would be locked out of their own game.
+    showGameView(); // defined in game.js
 });
-
 socket.on(RECEIVE.ERROR, text => showStatus(text, true));
 
 socket.on(RECEIVE.CLOSED, ({ everConnected }) => {
@@ -91,12 +98,33 @@ startBtn.addEventListener("click", () => {
     socket.send(SEND.GAME_START);
 });
 
-leaveBtn.addEventListener("click", () => {
+// leaveBtn.addEventListener("click", () => {
+//     // Backend refuses "user.leave" from the host (ErrHostCantLeave), so the
+//     // host just disconnects.
+//     if (!isHost) socket.send(SEND.USER_LEAVE);
+//     socket.close();
+//     window.location.href = "HomePage.html";
+// });
+let leaving = false; // true once the player chose to leave
+
+leaveBtn.addEventListener("click", leaveRoom);
+
+// UC8 Leave Room / UC9 Leave Game. game.js uses this too.
+function leaveRoom() {
+    leaving = true; // skip the "are you sure?" refresh warning below
     // Backend refuses "user.leave" from the host (ErrHostCantLeave), so the
     // host just disconnects.
     if (!isHost) socket.send(SEND.USER_LEAVE);
     socket.close();
     window.location.href = "HomePage.html";
+}
+
+// Refreshing or closing the tab drops the socket, and the player can't get
+// back in with the same name. Ask the browser to confirm first.
+window.addEventListener("beforeunload", e => {
+    if (leaving || !socket.everConnected) return;
+    e.preventDefault();
+    e.returnValue = ""; // older browsers need this to show the prompt
 });
 
 // drawing

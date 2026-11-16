@@ -5,7 +5,8 @@
     <link rel="stylesheet" href="Styling.css">
 </head>
 <body>
-    <div class="room-page">
+    <!-- ROOM VIEW (UC1-UC4)  -->
+    <div class="room-page" id="room-view">
         <h1 class="room-page-title">Galaxy Golf</h1>
 
         <div class="room-code-card">
@@ -49,7 +50,41 @@
             </button>
         </div>
     </div>
+
+    <!-- GAME VIEW (UC5-UC9)
+         Moved here from Game.html so the WebSocket opened by room.js stays
+         open for the whole game. Shown when the server sends "game.started". -->
+    <div class="play-game" id="game-view" hidden>
+        <button type="button" class="leave-button" id="game-leave-button">
+            Leave
+        </button>
+        <div class="game-card">
+            <div class="GameStat">
+                <label class="GameStatLabel">Player turn: <span id="turn-label">-</span></label>
+                <br>
+                <label class="GameStatLabel">Hole: <span id="hole-label">1</span></label>
+                <br>
+                <div class="scorecard">
+                    <h2>Scorecard</h2>
+
+                    <table class="golf-table">
+                        <thead>
+                            <tr id="score-head"></tr>
+                        </thead>
+                        <tbody id="score-body"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <p id="game-status" class="room-status"></p>
+
+            <!-- UC5: the course and golf ball drawing goes here -->
+            <div id="course-area"></div>
+        </div>
+    </div>
+
     <script src="js/api.js"></script>
     <script src="js/room.js"></script>
+    <script src="js/game.js"></script>
 </body>
 </html>

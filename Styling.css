@@ -233,3 +233,9 @@ button:hover {
 .room-status.error {
     color: #ff6b6b;
 }
+/* Make the `hidden` attribute always win. Without this, `.play-game
+   { display: flex }` would override it and the game view would show
+   on top of the room view. */
+[hidden] {
+    display: none !important;
+}
