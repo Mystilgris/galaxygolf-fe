@@ -65,8 +65,11 @@ class GameSocket {
             }
             // The JSON "error" event carries an empty object, so the useful
             // text arrives in the plain-text message right after it. Skip it.
-            if (parsed.event === "error") return;
-            this.emit(parsed.event, parsed.data);
+            if (parsed.event === "error") {
+                this.emit(RECEIVE.ERROR, typeof parsed.data === "string" 
+                    ? parsed.data : JSON.stringify(parsed.data));
+                return;
+            }
         };
 
         // A browser cannot read the HTTP status of a failed upgrade, so a
