@@ -59,10 +59,28 @@ socket.on(RECEIVE.GAME_STARTED, data => {
 });
 socket.on(RECEIVE.ERROR, text => showStatus(text, true));
 
+// UC8 / UC9: the host left, so the server deleted the room. Everyone else is
+// sent back to the main menu, because a room with no host can't start.
+socket.on(RECEIVE.ROOM_REMOVED, () => {
+    leaving = true; // the room is gone: no "are you sure?" prompt
+    if (courseFinished) {
+        // Players looking at the final results can stay and read them.
+        showGameStatus("The host has left the room.");
+        return;
+    }
+    const msg = "The host left, so the room was closed. Returning to the main menu...";
+    if (inGame) showGameStatus(msg, true);
+    else showStatus(msg, true);
+    setTimeout(() => { window.location.href = "HomePage.html"; }, 2500);
+});
+
 socket.on(RECEIVE.CLOSED, ({ everConnected }) => {
+    if (leaving) return; // we closed it on purpose
     if (!everConnected) {
-        // UC3 alt flows 3.2 / 3.3. The browser can't tell which one happened.
-        showStatus("Couldn't join. Check the room code, or try a different username.", true);
+        // UC3 alt flows: wrong code, taken username, or the game has already
+        // started. The browser can't tell which one happened.
+        showStatus("Couldn't join. Check the room code, try a different username, " +
+            "or the game may have already started.", true);
         setTimeout(() => {
             window.location.href = isHost ? "CreateRoom.html" : "JoinRoom.html";
         }, 2500);
@@ -110,13 +128,22 @@ let leaving = false; // true once the player chose to leave
 leaveBtn.addEventListener("click", leaveRoom);
 
 // UC8 Leave Room / UC9 Leave Game. game.js uses this too.
+// UC8 Leave Room / UC9 Leave Game. game.js uses this too.
 function leaveRoom() {
+    if (leaving) return;
     leaving = true; // skip the "are you sure?" refresh warning below
-    // Backend refuses "user.leave" from the host (ErrHostCantLeave), so the
-    // host just disconnects.
-    if (!isHost) socket.send(SEND.USER_LEAVE);
-    socket.close();
-    window.location.href = "HomePage.html";
+
+    // Everyone sends "user.leave", the host included. The server removes a
+    // player and tells the others ("user.leaved"); for the host it deletes
+    // the room and tells the others ("room.removed").
+    socket.send(SEND.USER_LEAVE);
+
+    // Wait for the server to close our connection (or 1 second) before
+    // changing pages. Changing pages straight away can cut the connection
+    // before "user.leave" is sent, and then the other players are never told.
+    const goHome = () => { window.location.href = "HomePage.html"; };
+    socket.ws.addEventListener("close", goHome);
+    setTimeout(goHome, 1000);
 }
 
 // Refreshing or closing the tab drops the socket, and the player can't get
